@@ -7,7 +7,7 @@ Flowlab SDK Launcher is brought to you by yours truly, ***rezarg***.
 Head on over to [releases](https://github.com/rezarg/flowlab-sdk-launcher/releases) and select the latest release. There, you'll find some important assets: `bundles.zip` and `FlowlabSDKLauncherSetup.exe`.
 
 These files are:
-1. `bundles.zip`: This includes the Behavior Import code for the various Flowlab Bundles, used to interact with the Launcher and the SteamSDK / DiscordSDK.
+1. `SDK Bundles.zip`: This includes the Behavior Import code for the various Flowlab Bundles, used to interact with the Launcher and the SteamSDK / DiscordSDK.
 4. `FlowlabSDKLauncherSetup.exe`: This executable is an installer program that will help you setup the Flowlab SDK Launcher for your Flowlab Game by requesting necessary information.
 
 After you've completed the Flowlab SDK Launcher setup, your game's file structure should look like so:
@@ -19,7 +19,6 @@ bin/
 │   └── preview.png
 ├── icon.ico
 ├── Launcher.exe -- You'll want to run this instead of YourGameName.exe when you want to play your game with SteamSDK and DiscordSDK support.
-├── LauncherConsole.exe -- This will appear if you enabled the debug launcher. (This is helpful for debugging SDK errors, but contains information that shouldn't be shared during production)
 ├── lime.ndll
 └── YourGameName.exe
 ```
