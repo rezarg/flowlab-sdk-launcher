@@ -24,4 +24,4 @@ bin/
 ```
 
 ## Workshop Customization
-You may have noticed the `workshop/` folder if you chose to include Steam Workshop support. If you open it up, you'll find `preview.png`. This is the default image if workshop assets. (A workshop item's image can be changed after uploading, this is just the default!)
+You may have noticed the `workshop/` folder if you chose to include Steam Workshop support. If you open it up, you'll find `preview.png`. This is the default image of workshop assets. (A workshop item's image can be changed after uploading by the user.)
