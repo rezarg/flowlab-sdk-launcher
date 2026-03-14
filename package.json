@@ -25,6 +25,9 @@
       "workshop/**/*",
       "node_modules/steamworks.js/**/*"
     ],
+    "targets": [
+      "node18-win-x64"
+    ],
     "outputPath": "dist"
   }
 }

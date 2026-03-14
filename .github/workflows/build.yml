@@ -1,5 +1,8 @@
 name: Build
 
+permissions:
+    contents: write
+
 on:
     push:
         branches: [main]
@@ -13,7 +16,7 @@ jobs:
                 config:
                     - { name: MacOS-x64,    os: macos-latest,   target: "node18-macos-x64",     out: "Launcher-MACOS-x64" }
                     - { name: MacOS-arm64,  os: macos-latest,   target: "node18-macos-arm64",   out: "Launcher-MACOS-arm64" }
-                    - { name: Windows-x86,  os: windows-latest, target: "node18-win-x64",       out: "Launcher-WINDOWS-x64" }
+                    # - { name: Windows-x86, os: windows-latest, target: "node18-win-x64", out: "Launcher-WINDOWS-x64" }
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v3
@@ -23,15 +26,6 @@ jobs:
             - run: npm install
             - run: npm install pkg
 
-            - name: Build Launcher (Windows)
-              if: runner.os == 'Windows'
-              shell: pwsh
-              run: |
-                npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe --no-cache --debug
-                Copy-Item dist/${{ matrix.config.out }}.exe dist/${{ matrix.config.out }}-CONSOLE.exe
-                $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-                & cmd /c "`"$vsPath`" && editbin /subsystem:windows dist/${{ matrix.config.out }}.exe"
-            
             - name: Build Launcher (MacOS)
               if: runner.os == 'macOS'
               shell: bash
@@ -42,3 +36,13 @@ jobs:
               with:
                 name: Launcher-Artifact-${{ matrix.config.name }}
                 path: dist/
+            
+            - name: Commit Launcher (MacOS)
+              if: runner.os == 'macOS'
+              run: |
+                git config user.name "github-actions[bot]"
+                git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+                git add dist/${{ matrix.config.out }}
+                git commit -m "Update Launcher (${{ matrix.config.out }})"
+                git push
