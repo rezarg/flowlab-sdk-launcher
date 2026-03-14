@@ -26,8 +26,8 @@ jobs:
               if: runner.os == 'Windows'
               shell: powershell
               run: |
-                mkdir C:\PKG_CACHE
-                set PKG_CACHE_PATH=C:\PKG_CACHE
+                $env:PKG_CACHE_PATH="$env:GITHUB_WORKSPACE\.pkg-cache"
+                New-Item -ItemType Directory -Force -Path $env:PKG_CACHE_PATH
                 npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe
                 Copy-Item dist/${{ matrix.config.out }}.exe dist/${{ matrix.config.out }}-CONSOLE.exe
                 $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
