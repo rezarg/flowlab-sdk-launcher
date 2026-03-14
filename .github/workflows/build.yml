@@ -37,7 +37,7 @@ jobs:
               run: |
                 npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}
             
-            - uses: actions/upload-artifact@v3
+            - uses: actions/upload-artifact@v4
               with:
                 name: ${{ runner.os }}-launchers
                 path: dist/
