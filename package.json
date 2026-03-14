@@ -1,0 +1,35 @@
+{
+  "name": "launcher",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "rezarg",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "discord-rpc": "^4.0.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.1.0",
+    "steamworks.js": "^0.4.0"
+  },
+  "pkg": {
+    "scripts": "index.js",
+    "assets": [
+      ".env",
+      "workshop/**/*",
+      "node_modules/steamworks.js/**/*"
+    ],
+    "targets": [
+      "node18-win-x64",
+      "node18-macos-x64",
+      "node18-macos-arm64"
+    ],
+    "outputPath": "dist"
+  }
+}
