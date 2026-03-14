@@ -26,6 +26,7 @@ jobs:
               if: runner.os == 'Windows'
               shell: powershell
               run: |
+                mkdir C:\PKG_CACHE
                 set PKG_CACHE_PATH=C:\PKG_CACHE
                 npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe
                 Copy-Item dist/${{ matrix.config.out }}.exe dist/${{ matrix.config.out }}-CONSOLE.exe
