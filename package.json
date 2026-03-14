@@ -21,7 +21,6 @@
   "pkg": {
     "scripts": "index.js",
     "assets": [
-      ".env",
       "workshop/**/*",
       "node_modules/steamworks.js/**/*"
     ],

@@ -27,8 +27,6 @@ if (match) {
 
 console.log("LauncherConfig loaded:", launcherConfig);
 
-const steam_api_key = process.env.API_KEY;
-
 /* UTIL FUNCTIONS */
 
 function generateUUID() {
@@ -344,7 +342,7 @@ app.get("/workshop/unsubscribe/:itemId", (req, res) => {
   });
 });
 
-app.get("/workshop/getSubscriptions", (req, res) => {
+app.get("/workshop/getSubscriptions", (_, res) => {
   if (!client) {
     res.status(500).send("0");
     return;
@@ -355,33 +353,33 @@ app.get("/workshop/getSubscriptions", (req, res) => {
   res.status(200).send(installedItems);
 });
 
-app.get("/workshop/getItemPage/:itemId", (req, res) => {
-  if (!client) {
-    res.status(500).send("0");
-    return;
-  }
-
-  const { itemId } = req.params;
-  client.workshop.getItem(BigInt(itemId)).then(async (item) => {
-    console.log("/workshop/getItemPage/ - Item:", itemId, item);
-    if (!item) { throw "No Item"; }
-    if (!item.owner) { throw "No Owner"; }
-    let playerSummaries = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${steam_api_key}&steamids=${item.owner.steamId64}`);
-    playerSummaries = await playerSummaries.json();
-    const ownerProfile = playerSummaries.response.players[0];
-    const result = {
-      title: item.title,
-      description: item.description,
-      owner: ownerProfile.personaname,
-    }
-    console.log("/workshop/getItemPage/ - Item page:", itemId, result);
-    const uuid = generateUUID();
-    res.status(200).send(`${uuid}:${Object.values(result).join(uuid)}`);
-  }).catch((err) => {
-    console.error("/workshop/getItemPage/ - Error:", err);
-    res.status(500).send(err);
-  });
-});
+// app.get("/workshop/getItemPage/:itemId", (req, res) => {
+//   if (!client) {
+//     res.status(500).send("0");
+//     return;
+//   }
+// 
+//   const { itemId } = req.params;
+//   client.workshop.getItem(BigInt(itemId)).then(async (item) => {
+//     console.log("/workshop/getItemPage/ - Item:", itemId, item);
+//     if (!item) { throw "No Item"; }
+//     if (!item.owner) { throw "No Owner"; }
+//     let playerSummaries = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.API_KEY}&steamids=${item.owner.steamId64}`);
+//     playerSummaries = await playerSummaries.json();
+//     const ownerProfile = playerSummaries.response.players[0];
+//     const result = {
+//       title: item.title,
+//       description: item.description,
+//       owner: ownerProfile.personaname,
+//     }
+//     console.log("/workshop/getItemPage/ - Item page:", itemId, result);
+//     const uuid = generateUUID();
+//     res.status(200).send(`${uuid}:${Object.values(result).join(uuid)}`);
+//   }).catch((err) => {
+//     console.error("/workshop/getItemPage/ - Error:", err);
+//     res.status(500).send(err);
+//   });
+// });
 
 app.get("/workshop/getItemContent/:itemId", (req, res) => {
   if (!client) {
