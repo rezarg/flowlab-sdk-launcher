@@ -21,12 +21,13 @@ jobs:
                 node-version: 18
 
             - run: npm install
+            - run: npm install pkg
 
             - name: Build Launcher (Windows)
               if: runner.os == 'Windows'
               shell: pwsh
               run: |
-                npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe --no-cache
+                npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe --no-cache --debug
                 Copy-Item dist/${{ matrix.config.out }}.exe dist/${{ matrix.config.out }}-CONSOLE.exe
                 $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
                 & cmd /c "`"$vsPath`" && editbin /subsystem:windows dist/${{ matrix.config.out }}.exe"
