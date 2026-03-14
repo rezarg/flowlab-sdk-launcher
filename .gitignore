@@ -1,5 +1,7 @@
 .env
 
 node_modules/
+!node_modules/steamworks.js/
+!node_modules/steamworks.js/**
 
 build.*
