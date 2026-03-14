@@ -24,12 +24,9 @@ jobs:
 
             - name: Build Launcher (Windows)
               if: runner.os == 'Windows'
-              shell: powershell
+              shell: pwsh
               run: |
-                $PKG_CACHE = "$env:GITHUB_WORKSPACE/.pkg-cache"
-                New-Item -ItemType Directory -Force -Path $PKG_CACHE
-                $env:PKG_CACHE_PATH = $cache
-                npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe
+                npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}.exe --no-cache
                 Copy-Item dist/${{ matrix.config.out }}.exe dist/${{ matrix.config.out }}-CONSOLE.exe
                 $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
                 & cmd /c "`"$vsPath`" && editbin /subsystem:windows dist/${{ matrix.config.out }}.exe"
