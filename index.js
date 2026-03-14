@@ -9,9 +9,9 @@ const cors = require("cors");
 require("dotenv").config();
 
 const launcherConfig = {
-  application: "ParseORhythm",
-  app_id: 2988830,
-  discord_app_id: "1324833553057447977"
+  application: "",
+  app_id: 480,
+  discord_app_id: ""
 }
 
 const exeData = fs.readFileSync(process.execPath).toString();
@@ -505,8 +505,8 @@ if (rpc) {
   rpc.login({ clientId: launcherConfig.discord_app_id }).catch(console.error);
 }
 
-process.on('SIGINT', function() {
-  console.log( "\nShutting down (Ctrl-C)" );
+process.on('SIGINT', function () {
+  console.log("\nShutting down (Ctrl-C)");
   process.exit(0);
 });
 
