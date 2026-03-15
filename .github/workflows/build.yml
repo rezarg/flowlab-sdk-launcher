@@ -9,14 +9,8 @@ on:
 
 jobs:
     build:
-        name: Build ${{ matrix.config.name }}
-        runs-on: ${{ matrix.config.os }}
-        strategy:
-            matrix:
-                config:
-                    - { name: MacOS-x64,    os: macos-latest,   target: "node18-macos-x64",     out: "Launcher-MACOS-x64" }
-                    - { name: MacOS-arm64,  os: macos-latest,   target: "node18-macos-arm64",   out: "Launcher-MACOS-arm64" }
-                    # - { name: Windows-x86, os: windows-latest, target: "node18-win-x64", out: "Launcher-WINDOWS-x64" }
+        name: Build MacOS-x64 / MacOS-arm64
+        runs-on: macos-latest
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v3
@@ -26,23 +20,24 @@ jobs:
             - run: npm install
             - run: npm install pkg
 
-            - name: Build Launcher (MacOS)
-              if: runner.os == 'macOS'
+            - name: Build Launcher (MacOS-x64)
               shell: bash
               run: |
-                npx pkg . --targets ${{ matrix.config.target }} --output dist/${{ matrix.config.out }}
+                npx pkg . --targets node18-macos-x64 --output dist/Launcher-MACOS-x64
+                npx pkg . --targets node18-macos-arm64 --output dist/Launcher-MACOS-arm64
             
             - uses: actions/upload-artifact@v4
               with:
-                name: Launcher-Artifact-${{ matrix.config.name }}
+                name: Launcher-Artifact-MacOS
                 path: dist/
             
-            - name: Commit Launcher (MacOS)
-              if: runner.os == 'macOS'
+            - name: Commit Launchers (MacOS)
               run: |
                 git config user.name "github-actions[bot]"
                 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-                git add dist/${{ matrix.config.out }}
-                git commit -m "Update Launcher (${{ matrix.config.out }})" || echo "No changes; not commiting build."
+                git add dist/Launcher-MACOS-x64
+                git add dist/Launcher-MACOS-arm64
+
+                git commit -m "Update Launchers (MacOS)" || echo "No changes; not commiting build."
                 git push
