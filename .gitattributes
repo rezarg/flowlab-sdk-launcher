@@ -1,0 +1,4 @@
+dist/Launcher-WINDOWS-x64.exe filter=lfs diff=lfs merge=lfs -text
+dist/Launcher-WINDOWS-x64-CONSOLE.exe filter=lfs diff=lfs merge=lfs -text
+dist/Launcher-MACOS-x64.exe filter=lfs diff=lfs merge=lfs -text
+dist/Launcher-MACOS-arm64.exe filter=lfs diff=lfs merge=lfs -text
