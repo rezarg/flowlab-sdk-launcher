@@ -30,7 +30,7 @@ jobs:
               if: runner.os == 'macOS'
               shell: bash
               run: |
-                npx pkg . --targets ${{ matrix.config.target }} --output ${{ matrix.config.out }}
+                npx pkg . --targets ${{ matrix.config.target }} --output dist/${{ matrix.config.out }}
             
             - uses: actions/upload-artifact@v4
               with:
