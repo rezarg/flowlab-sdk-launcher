@@ -25,6 +25,10 @@ jobs:
               run: |
                 npx pkg . --targets node18-macos-x64 --output dist/Launcher-MACOS-x64
                 npx pkg . --targets node18-macos-arm64 --output dist/Launcher-MACOS-arm64
+                cd dist
+                chmod +x Launcher-MACOS-x64
+                chmod +x Launcher-MACOS-arm64
+                cd ..
             
             - uses: actions/upload-artifact@v4
               with:
