@@ -25,6 +25,10 @@ if (match) {
   launcherConfig.discord_app_id = match[3].trim();
 }
 
+if (launcherConfig.application.endsWith(".exe.app")) {
+  launcherConfig.application.slice(0, -4)
+}
+
 console.log("LauncherConfig loaded:", launcherConfig);
 
 /* UTIL FUNCTIONS */
@@ -48,6 +52,9 @@ if (launcherConfig.application && launcherConfig.application.length > 0) {
     console.log("Platform: win32 :: application path: ", gamePath);
     gameProcess = spawn(`${realDir}\\${launcherConfig.application}`, [], { detached: true, stdio: "ignore" });
   } else if (process.platform == "darwin") {
+    if (launcherConfig.application.endsWith(".exe")) {
+      launcherConfig.application = launcherConfig.application.slice(0, -4);
+    }
     const gamePath = `${launcherConfig.application}.app`;
     console.log("Platform: darwin :: application path: ", gamePath);
     gameProcess = spawn(`open`, ["-W", `${realDir}/${gamePath}`], { detached: true, stdio: "ignore" });
