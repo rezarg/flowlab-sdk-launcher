@@ -26,7 +26,7 @@ if (match) {
 }
 
 if (launcherConfig.application.endsWith(".exe.app")) {
-  launcherConfig.application.slice(0, -4)
+  launcherConfig.application.slice(0, -4);
 }
 
 console.log("LauncherConfig loaded:", launcherConfig);
