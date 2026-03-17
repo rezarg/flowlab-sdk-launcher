@@ -55,7 +55,7 @@ if (launcherConfig.application && launcherConfig.application.length > 0) {
     if (launcherConfig.application.endsWith(".exe")) {
       launcherConfig.application = launcherConfig.application.slice(0, -4);
     }
-    const gamePath = `${launcherConfig.application}.app`;
+    const gamePath = launcherConfig.application;
     console.log("Platform: darwin :: application path: ", gamePath);
     gameProcess = spawn(`open`, ["-W", `${realDir}/${gamePath}`], { detached: true, stdio: "ignore" });
   }
